@@ -1,9 +1,7 @@
-# 474-Project-1
-Project 1: Servers
+# Lamport Logical Clock Calculator
 
-Group members:
-
-Jamie Lambrecht mjlambrecht@csu.fullerton.edu
+A school project by
+Jamie Lambrecht
 
 ## USAGE
 
@@ -11,4 +9,4 @@ This program contains a file called Main.java, with the source code for the prog
 
 The "-c" option will run the "calculate" algorithm on the specified input file, while the "-v" option will run the "verify" algorithm on the specified input file. 1 test case entitled "input_calculate.txt" is included for use with "calculate" algorithm and 3 test cases entitled "input_verify*.txt" (where '*' is substituted with the regular expression [1-3]). Any other input files can be specified in the command line arguments, but must be properly formatted.
 
-The format for the "calculate" algorithm is a series of rows in a text file consisting of event specifiers where [a-q|t-z|A-Q|T-Z] denote internal events, s[1-9] and r[1-9] send and represent receive events, respectively, as defined by the Lamport Logical Clock algorithm, seperated by ASCII whitespace (preferably tab characters). The format for the "verify" algorithm is a series of rows in a text file consisting of strictly increasing integers which can be translated to the aforementioned event specifiers. The verify algorithm will determine incorrect input based on Logical Clock sequencing of events, but it is not guaranteed that all invalid input will be determined by all algorithms. The calculate has handling for several obvious syntax errors, but it is generally expected that even logically incorrect input is at least syntactically correct.
+The format for the "calculate" algorithm is a series of rows in a text file consisting of event specifiers where [a-q|t-z|A-Q|T-Z] denote internal events, s[1-9] and r[1-9] represent send and receive events, respectively, as defined by the Lamport Logical Clock algorithm, seperated by ASCII whitespace (preferably tab characters). The format for the "verify" algorithm is a series of rows in a text file consisting of strictly increasing integers which can be translated to the aforementioned event specifiers. The verify algorithm will determine incorrect input based on Logical Clock sequencing of events, but it is not guaranteed that all invalid input will be determined by all algorithms. The calculate has handling for several obvious syntax errors, but it is generally expected that even logically incorrect input is at least syntactically correct.

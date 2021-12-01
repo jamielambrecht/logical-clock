@@ -363,6 +363,7 @@ public class Main {
 
         // Store the sequence numbers for send events
         Map<Integer, Integer> sends = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> previous_sends = new HashMap<Integer, Integer>();
 
         // Store send number expected by receive event by row 
         int [] waiting_for = new int [N];
@@ -444,9 +445,12 @@ public class Main {
 
                                     // Add digit to outgoing sends
                                     sends.put(digit, LC[row]);
+                                    previous_sends.put(digit, LC[row]);
 
                                     // Write the current LC to output and increment LC
-                                    output[row][column] = LC[row]++;
+                                    output[row][column] = LC[row];
+
+                                    LC[row] += 1;
 
                                     // Increment the index to next element in row.
                                     current_index[row] += 1;
@@ -493,7 +497,17 @@ public class Main {
                         
                         // Write the current LC to output and increment LC
                         
-                        output[row][column] = Math.max(LC[row], sends.get(receive_number)) + 1;
+                        // if (LC[row] > sends.get(receive_number)) {
+                        //     output[row][column] = LC[row] + 1;
+                        //     LC[row] = output[row][column] + 1;
+                        // } else if (LC[row] == sends.get(receive_number)) {
+                        //     output[row][column] = sends.get(receive_number) + 1;
+                        //     LC[row] = output[row][column] + 1;
+                        // } else {
+                        //     output[row][column] = sends.get(receive_number) + 1;
+                        //     LC[row] = output[row][column];
+                        // }
+                        output[row][column] = Math.max(LC[row], sends.get(receive_number) + 1);
                         
                         LC[row] = output[row][column] + 1;
 
@@ -504,7 +518,31 @@ public class Main {
                         waiting_for[row] = 0;
 
                         // TODO this will have to be fixed for broadcasts
+                        
                         sends.remove(receive_number);
+
+                    } else if (previous_sends.containsKey(receive_number)) {
+
+                        // if (LC[row] > previous_sends.get(receive_number)) {
+                        //     output[row][column] = LC[row] + 1;
+                        //     LC[row] = output[row][column] + 2;
+                        // } else if (LC[row] == previous_sends.get(receive_number)) {
+                        //     output[row][column] = previous_sends.get(receive_number) + 1;
+                        //     LC[row] = output[row][column] + 2;
+                        // } else {
+                        //     output[row][column] = previous_sends.get(receive_number) + 1;
+                        //     LC[row] = output[row][column] + 2;
+                        // }
+                        output[row][column] = Math.max(LC[row], previous_sends.get(receive_number) + 1);
+                        
+                        LC[row] = output[row][column] + 1;
+
+                        // Increment the index to next element in row.
+                        current_index[row] += 1;
+
+                        // We are not longer waiting for the send
+                        waiting_for[row] = 0;
+
 
                     } else {
                         // Go to next row

@@ -10,8 +10,8 @@
             "request": "launch",
             "mainClass": "${file}",
             "args": [
-                "-v",
-                "input_verify1.txt"
+                "-c",
+                "input_calculate2.txt"
             ]
         }
     ]
